@@ -20,26 +20,20 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Page<Product> getAllProductsPageable(int currentPage, int pageSize) {
-        Pageable pageable = PageRequest.of(currentPage, pageSize);
-        return productRepository.findAll(pageable);
-    }
-    public Page<Product> getFilteredProducts(int currentPage,int pageSize,List<Long> category, Long color, Long size, Double minPrice, Double maxPrice) {
-        Pageable pageable = PageRequest.of(currentPage,pageSize);
+//    public Page<Product> getAllProductsPageable(int currentPage, int pageSize) {
+//        Pageable pageable = PageRequest.of(currentPage, pageSize);
+//        Page<Product> products = productRepository.findAll(pageable);
+//        return products;
+//    }
 
-        return productRepository.findProductsByFilters(category, color, size, minPrice, maxPrice,pageable );
+
+
+    public List<Product> findProductById(Long id) {
+        return productRepository.findProductById(id);
     }
 
-    public Page<Product> sortProductByPriceAsc(int currentPage, int pageSize) {
-        Pageable pageable = PageRequest.of(currentPage, pageSize);
-        return productRepository.findAllByOrderByPriceAsc(pageable);
-    }
-    public Page<Product> sortProductByPriceDesc(int currentPage, int pageSize) {
-        Pageable pageable = PageRequest.of(currentPage, pageSize);
-        return productRepository.findAllByOrderByPriceDesc(pageable);
-    }
-    public Optional<Product> findProductById(Long id) {
-        return productRepository.findById(id);
+    public List<Product> findByColor(Long id,String color) {
+        return productRepository.findByColor(id,color);
     }
 
 }

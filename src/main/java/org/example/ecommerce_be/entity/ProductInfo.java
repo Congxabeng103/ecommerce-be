@@ -7,40 +7,41 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.util.List;
-
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "product")
-public class Product {
+@Table(name = "product_info")
+public class ProductInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_info_id", nullable = false)
-    private ProductInfo productInfo;
+    @Column(nullable = false)
+    private String name;
 
     @Column(nullable = false)
     private BigDecimal price;
 
-
-    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "productInfo",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference  // ✅ Giúp Jackson hiểu đây là quan hệ chủ động
-    private List<ProductImage> images;
+    private List<ProductInfoImage> images;
 
-    @Column(length = 50)
-    private String color;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    @Column(length = 50)
-    private String size;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
-    @Column(nullable = false)
-    private int quantity; // Số lượng sản phẩm có sẵn
+    @OneToMany(mappedBy = "productInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Product> products;
+
     // Getters và Setters
 }
