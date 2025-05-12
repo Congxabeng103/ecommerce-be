@@ -15,7 +15,7 @@ import java.nio.file.StandardCopyOption;
 
 @RestController
 @RequestMapping("/api/images")
-@CrossOrigin(origins = "http://localhost:5174")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ImageController {
 
     private final String UPLOAD_DIR = "uploads/";

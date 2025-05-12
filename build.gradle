@@ -26,13 +26,20 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Spring Boot Starter Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // Spring Security OAuth2 Resource Server (JWT)
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    // Spring Security OAuth2 Client (nếu dùng Keycloak login trực tiếp từ frontend)
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    // Keycloak Spring Boot Adapter (dùng nếu cần tích hợp với Keycloak trên backend)
+    implementation 'org.keycloak:keycloak-spring-boot-starter:22.0.1'
 }
 
 tasks.named('test') {

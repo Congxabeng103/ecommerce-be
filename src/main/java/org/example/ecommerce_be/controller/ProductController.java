@@ -1,5 +1,6 @@
 package org.example.ecommerce_be.controller;
 
+import org.example.ecommerce_be.dto.SizeQuantityDTO;
 import org.example.ecommerce_be.entity.Product;
 import org.example.ecommerce_be.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(origins = "http://localhost:5174")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -21,9 +22,24 @@ public class ProductController {
         return productService.findProductById(id);
     }
 
-    @GetMapping("/{id}/filter")
-    public List<Product> findByColor(@PathVariable Long id,@RequestParam(required = false) String color){
-        return productService.findByColor(id,color);
+    @GetMapping("/{id}/filterByColor")
+    public List<Product> findByColor(@PathVariable Long id,@RequestParam String color){
+        return productService.filterByColor(id, color);
+    }
+
+    @GetMapping("/{id}/filterByColorAndSize")
+    public Product findByColor(@PathVariable Long id,@RequestParam String color, @RequestParam String size){
+        return productService.filterByColorAndSize(id, color, size);
+    }
+
+    @GetMapping("/{id}/colors")
+    public List<String> getDistinctColors(@PathVariable Long id) {
+        return productService.getDistinctColors(id);
+    }
+
+    @GetMapping("/{id}/sizes")
+    public List<SizeQuantityDTO> getDistinctSizes(@PathVariable Long id) {
+        return productService.getDistinctSizes(id);
     }
 
 

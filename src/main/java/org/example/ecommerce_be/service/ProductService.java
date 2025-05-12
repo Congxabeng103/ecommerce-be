@@ -1,5 +1,6 @@
 package org.example.ecommerce_be.service;
 
+import org.example.ecommerce_be.dto.SizeQuantityDTO;
 import org.example.ecommerce_be.entity.Product;
 import org.example.ecommerce_be.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,24 @@ public class ProductService {
 //    }
 
 
-
     public List<Product> findProductById(Long id) {
         return productRepository.findProductById(id);
     }
 
-    public List<Product> findByColor(Long id,String color) {
-        return productRepository.findByColor(id,color);
+    public List<Product> filterByColor(Long id, String color) {
+        return productRepository.filterByColor(id, color);
+    }
+    public Product filterByColorAndSize(Long id, String color, String size) {
+        return productRepository.filterByColorAndSize(id, color, size);
     }
 
+    public List<String> getDistinctColors(Long productId) {
+        return productRepository.findDistinctColorsByProductInfoId(productId);
+
+    }
+
+
+     public List<SizeQuantityDTO> getDistinctSizes(Long productId) {
+         return productRepository.findDistinctSizesByProductInfoId(productId);
+     }
 }
